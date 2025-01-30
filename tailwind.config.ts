@@ -1,4 +1,6 @@
 import type { Config } from "tailwindcss";
+import tailwindAnimate from "tailwindcss-animate";
+
 
 export default {
     darkMode: ["class"],
@@ -9,6 +11,12 @@ export default {
   ],
   theme: {
   	extend: {
+			fontFamily: {
+        // Use CSS variables from `next/font`
+        poppins: ['var(--font-poppins)', 'sans-serif'],
+        roboto: ['var(--font-roboto)', 'sans-serif'],
+				exo2: ['var(--font-exo-2)', 'sans-serif']
+      },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -58,5 +66,5 @@ export default {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindAnimate],
 } satisfies Config;
