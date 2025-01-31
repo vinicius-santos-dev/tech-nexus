@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
@@ -38,9 +39,12 @@ export default function RootLayout({
         <body
           className={`${poppins.variable} ${roboto.variable} ${exo2.variable} antialiased`}
         >
-          <main>
-          <Header />
-          {children}
+          <main className="">
+            <Header />
+            <div className="min-h-screen px-3 sm:px-6  max-w-7xl mx-auto">
+              {children}
+            </div>
+            <Footer />
           </main>
         </body>
       </html>

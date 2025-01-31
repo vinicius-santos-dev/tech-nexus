@@ -15,14 +15,15 @@ function Header() {
   const { user } = useUser();
 
   return (
-    <header className="flex flex-wrap justify-between items-center px-4 py-2">
+    <header className="flex flex-wrap flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0 px-3 sm:px-6 max-w-7xl mx-auto py-2">
       <div>
         <Link href="/" className="font-exo2 text-2xl font-bold">
           Tech Nexus
         </Link>
       </div>
 
-      <div className="flex gap-4 items-center">
+      {/* TODO: change the spacings when signed in and signed out */}
+      <nav className="flex gap-8 items-center text-sm sm:text-base">
         <Link href="/">Home</Link>
         <Link href="/shop">Shop</Link>
 
@@ -39,7 +40,13 @@ function Header() {
 
           {user ? (
             <div className="flex items-center space-x-2">
-              <UserButton />
+              <UserButton
+                appearance={{
+                  elements: {
+                    avatarBox: "w-9 h-9 sm:w-10 sm:h-10",
+                  },
+                }}
+              />
 
               <div className="hidden sm:block text-xs">
                 <p className="text-gray-500">Welcome, </p>
@@ -52,7 +59,7 @@ function Header() {
             </SignInButton>
           )}
         </ClerkLoaded>
-      </div>
+      </nav>
     </header>
   );
 }
