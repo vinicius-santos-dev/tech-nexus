@@ -63,7 +63,7 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
         </div>
 
         <div
-          className="mt-auto flex justify-between items-center fixed bottom-0 left-0 right-0 px-3 py-4
+          className="mt-auto flex justify-between items-center fixed bottom-0 left-0 right-0 px-3 py-3
                   bg-white border-t border-gray-200 shadow-lg sm:shadow-none sm:border-0 
                     sm:relative sm:px-0 sm:py-0"
         >
@@ -73,7 +73,7 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
 
           <Button
             disabled={!isInStock}
-            className="max-w-[70%] sm:max-w-none w-full text-base"
+            className="max-w-[70%] sm:max-w-none w-full text-base h-12 rounded-xl"
           >
             {isInStock ? "Add to cart" : "Out of stock"}
           </Button>
