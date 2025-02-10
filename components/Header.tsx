@@ -23,7 +23,7 @@ function Header() {
         </Link>
       </div>
 
-      <div className="flex flex-1 flex-col-reverse sm:flex-row items-center justify-between gap-3">
+      <div className="flex flex-1 w-full flex-col-reverse sm:flex-row items-center justify-between gap-3">
         <div></div>
 
         <Form action="/search" className="relative max-w-md w-full mt-3 sm:mt-0">

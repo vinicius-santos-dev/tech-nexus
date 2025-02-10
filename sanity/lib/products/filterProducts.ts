@@ -1,29 +1,58 @@
 import { Product } from "@/sanity.types";
 
-type FilterOptions = {
+type SortOption =
+  | "newest"
+  | "oldest"
+  | "nameAsc"
+  | "nameDesc"
+  | "priceAsc"
+  | "priceDesc";
+
+export type FilterOptions = {
   categoryId?: string;
-  sort?: "newest" | "oldest";
+  sort?: SortOption;
 };
 
 export function filterProducts(products: Product[], options: FilterOptions) {
   let filteredProducts = [...products];
 
   // Filter by category
-  if (options.categoryId) {
-    if(options.categoryId === "all") return filteredProducts; 
-
+  if (options.categoryId && options.categoryId !== "all") {
     filteredProducts = filteredProducts.filter((product) =>
       product.categories?.some((category) => category._ref === options.categoryId)
     );
   }
 
-  // Sort by date
+  // Sort products
   if (options.sort) {
-    filteredProducts.sort((a, b) => {
-      const dateA = new Date(a._createdAt).getTime();
-      const dateB = new Date(b._createdAt).getTime();
-      return options.sort === "newest" ? dateB - dateA : dateA - dateB;
-    });
+    switch (options.sort) {
+      case "newest":
+        filteredProducts.sort((a, b) => 
+          new Date(b._createdAt).getTime() - new Date(a._createdAt).getTime()
+        );
+        break;
+      case "oldest":
+        filteredProducts.sort((a, b) => 
+          new Date(a._createdAt).getTime() - new Date(b._createdAt).getTime()
+        );
+        break;
+      case "nameAsc":
+        filteredProducts.sort((a, b) => 
+          a.name!.localeCompare(b.name!)
+        );
+        break;
+      case "nameDesc":
+        filteredProducts.sort((a, b) => 
+          b.name!.localeCompare(a.name!)
+        );
+        break;
+      case "priceAsc":
+        filteredProducts.sort((a, b) => a.price! - b.price!);
+        break;
+      case "priceDesc":
+        filteredProducts.sort((a, b) => b.price! - a.price!);
+        break;
+    }
   }
 
   return filteredProducts;

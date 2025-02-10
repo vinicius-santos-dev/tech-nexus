@@ -8,40 +8,45 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Category } from "@/sanity.types";
+import { FilterOptions } from "@/sanity/lib/products/filterProducts";
 import { useState } from "react";
 
 interface FilterProps {
   categories: Category[];
-  onFilterChange: (filters: FilterState) => void;
+  onFilterChange: (filters: FilterOptions) => void;
 }
 
-type SortOption = "newest" | "oldest";
-
-export type FilterState = {
-  categoryId?: string;
-  sort?: "newest" | "oldest";
-};
-
 function Filter({ categories, onFilterChange }: FilterProps) {
-  const [filters, setFilters] = useState<FilterState>({ 
+  const [filters, setFilters] = useState<FilterOptions>({
     categoryId: "",
-    sort: "newest" 
+    sort: "nameAsc",
   });
 
-  const handleFilterChange = (key: keyof FilterState, value: string) => {
-    const newFilters = { ...filters, [key]: value } as FilterState;
+  const selectedCategory = categories.find(
+    (category) => category._id === filters.categoryId
+  );
+
+  const handleFilterChange = (key: keyof FilterOptions, value: string) => {
+    const newFilters = { ...filters, [key]: value } as FilterOptions;
     setFilters(newFilters);
     onFilterChange(newFilters);
   };
 
   return (
-    <div className="flex gap-4">
-      <Select defaultValue="" onValueChange={(value) => handleFilterChange("categoryId", value)}>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="All Categories" />
+    <div className="flex gap-4 justify-end mb-4">
+      <Select
+        defaultValue=""
+        onValueChange={(value) => handleFilterChange("categoryId", value)}
+      >
+        <SelectTrigger className="w-full sm:w-[150px] rounded-xl focus:ring-0">
+          <SelectValue placeholder="All Categories">
+            {selectedCategory ? selectedCategory.title : "All Categories"}
+          </SelectValue>
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All Categories</SelectItem>
+          {filters.categoryId && filters.categoryId !== "all" && (
+            <SelectItem value="all">All Categories</SelectItem>
+          )}
           {categories.map((category) => (
             <SelectItem key={category._id} value={category._id || ""}>
               {category.title}
@@ -50,13 +55,17 @@ function Filter({ categories, onFilterChange }: FilterProps) {
         </SelectContent>
       </Select>
 
-      <Select onValueChange={(value) => handleFilterChange("sort", value as SortOption)}>
-        <SelectTrigger className="w-[180px]">
+      <Select onValueChange={(value) => handleFilterChange("sort", value)}>
+        <SelectTrigger className="w-full sm:w-[150px] rounded-xl focus:ring-0">
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="newest">Newest First</SelectItem>
-          <SelectItem value="oldest">Oldest First</SelectItem>
+          <SelectItem value="nameAsc">A to Z</SelectItem>
+          <SelectItem value="nameDesc">Z to A</SelectItem>
+          <SelectItem value="priceAsc">Lowest Price</SelectItem>
+          <SelectItem value="priceDesc">Highest Price</SelectItem>
+          <SelectItem value="newest">Latest</SelectItem>
+          <SelectItem value="oldest">Oldest</SelectItem>
         </SelectContent>
       </Select>
     </div>

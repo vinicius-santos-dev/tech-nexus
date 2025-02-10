@@ -1,9 +1,12 @@
 "use client";
 
 import { Category, Product } from "@/sanity.types";
-import { filterProducts } from "@/sanity/lib/products/filterProducts";
+import {
+  FilterOptions,
+  filterProducts,
+} from "@/sanity/lib/products/filterProducts";
 import { useState } from "react";
-import Filter, { FilterState } from "./Filter";
+import Filter from "./Filter";
 import ProductGrid from "./ProductGrid";
 
 interface ProductsViewProps {
@@ -14,14 +17,14 @@ interface ProductsViewProps {
 function ProductsView({ categories, products }: ProductsViewProps) {
   const [filteredProducts, setFilteredProducts] = useState(products);
 
-  const handleFilterChange = (filters: FilterState) => {
+  const handleFilterChange = (filters: FilterOptions) => {
     const filtered = filterProducts(products, filters);
     setFilteredProducts(filtered);
   };
   return (
     <div className="flex flex-col">
       {/* CATEGORIES */}
-      <div className="w-full sm:w-[200px]">
+      <div className="w-full">
         <Filter categories={categories} onFilterChange={handleFilterChange} />
       </div>
       {/* PRODUCTS */}
