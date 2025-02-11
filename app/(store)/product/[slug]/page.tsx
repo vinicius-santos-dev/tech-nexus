@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import AddToCartButton from "@/components/AddToCartButton";
 import { imageUrl } from "@/lib/imageUrl";
 import { getProductBySlug } from "@/sanity/lib/products/getProductBySlug";
 import { PortableText } from "next-sanity";
@@ -32,14 +32,15 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
         <h1 className="text-2xl sm:text-5xl font-bold">{product.name}</h1>
 
         <div className="flex flex-wrap gap-3">
-          {product.categories?.map((category) => (
+          {/* TODO: Add category title (i have to create another help function to get category by id) */}
+          {/* {product.categories?.map((category) => (
             <span
               key={category.title}
               className="px-3 py-1 text-sm bg-gray-100 rounded-full"
             >
               {category.title}
             </span>
-          ))}
+          ))} */}
 
           <span
             className={`px-3 py-1 text-sm rounded-full ${
@@ -71,12 +72,7 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
             ${product.price}
           </h3>
 
-          <Button
-            disabled={!isInStock}
-            className="max-w-[70%] sm:max-w-none w-full text-base h-12 rounded-xl"
-          >
-            {isInStock ? "Add to cart" : "Out of stock"}
-          </Button>
+          <AddToCartButton product={product} isDisabled={!isInStock} />
         </div>
       </div>
     </div>

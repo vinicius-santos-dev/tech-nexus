@@ -14,6 +14,7 @@ export interface CartState {
   clearCart: () => void;
   getTotalPrice: () => number;
   getItemCount: (productId: string) => number;
+  getTotalItems: () => number;
   getGroupedItems: () => CartItem[];
 }
 
@@ -61,6 +62,7 @@ const useCartStore = create<CartState>()(
         const item = get().items.find((item) => item.product._id === productId);
         return item?.quantity ?? 0;
       },
+      getTotalItems: () => get().items.reduce((total, item) => total + item.quantity, 0),
       getGroupedItems: () => get().items,
     }),
     { name: "cart-storage" }

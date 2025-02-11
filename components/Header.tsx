@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import useCartStore from "@/store/store";
 import {
   ClerkLoaded,
   SignedIn,
@@ -15,6 +16,8 @@ import Link from "next/link";
 function Header() {
   const { user } = useUser();
 
+  const totalItems = useCartStore((state) => state.getTotalItems());
+
   return (
     <header className="flex flex-wrap flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0 px-3 sm:px-6 max-w-7xl mx-auto py-2">
       <div>
@@ -26,7 +29,10 @@ function Header() {
       <div className="flex flex-1 w-full flex-col-reverse sm:flex-row items-center justify-between gap-3">
         <div></div>
 
-        <Form action="/search" className="relative max-w-md w-full mt-3 sm:mt-0">
+        <Form
+          action="/search"
+          className="relative max-w-md w-full mt-3 sm:mt-0"
+        >
           <div className="relative flex items-center">
             <SearchIcon className="absolute left-2 w-7 h-7 text-gray-400 pointer-events-none" />
             <input
@@ -51,8 +57,13 @@ function Header() {
               <>
                 <Link href="/account">My Account</Link>
 
-                <Link href="/cart">
+                <Link href="/cart" className="relative">
                   <TrolleyIcon className="cursor-pointer h-8 w-8" />
+                  {totalItems > 0 && (
+                    <span className="absolute top-0 right-0 bg-lime-500 text-black text-xs font-bold rounded-full px-1">
+                      {totalItems}
+                    </span>
+                  )}
                 </Link>
               </>
             </SignedIn>
