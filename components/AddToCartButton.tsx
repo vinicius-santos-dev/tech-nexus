@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Product } from "@/sanity.types";
@@ -10,22 +10,26 @@ interface AddToCartButtonProps {
   isDisabled: boolean;
 }
 
-export default function AddToCartButton({ product, isDisabled }: AddToCartButtonProps) {
+export default function AddToCartButton({
+  product,
+  isDisabled,
+}: AddToCartButtonProps) {
   const { addItem } = useCartStore();
 
   const [isClient, setIsClient] = useState(false);
 
   // Use useEffect to set isClient to true after component mounts
-  // This ensures that the component only renders on the client-side 
+  // This ensures that the component only renders on the client-side
   // preventing hydration errors due to server/client mismatch
   useEffect(() => {
     setIsClient(true);
-  }, [])
+  }, []);
 
   if (!isClient) return null;
 
   return (
-    <Button 
+    // TODO: add toast notifications for adding to cart
+    <Button
       onClick={() => addItem(product)}
       disabled={isDisabled}
       className="max-w-[70%] sm:max-w-none w-full text-base h-12 rounded-xl"

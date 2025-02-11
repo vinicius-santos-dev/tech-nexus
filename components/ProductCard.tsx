@@ -41,7 +41,7 @@ function ProductCard({ product }: { product: Product }) {
               : ""
           ).join(" ") || ""}
         </p>
-        <p className="text-lg">${product.price}</p>
+        <p className="text-lg">${(product.price)?.toFixed(2)}</p>
       </div>
     </Link>
   );

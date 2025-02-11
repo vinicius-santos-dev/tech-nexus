@@ -53,7 +53,7 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
           </span>
         </div>
 
-        <p className="hidden sm:block text-lg">${product.price}</p>
+        <p className="hidden sm:block text-lg">${product.price?.toFixed(2)}</p>
 
         <div>
           <h2 className="text-lg font-bold">Description</h2>
@@ -69,7 +69,7 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
                     sm:relative sm:px-0 sm:py-0"
         >
           <h3 className="block sm:hidden text-lg font-bold">
-            ${product.price}
+            ${product.price?.toFixed(2)}
           </h3>
 
           <AddToCartButton product={product} isDisabled={!isInStock} />
