@@ -56,17 +56,17 @@ function Header() {
             <SignedIn>
               <>
                 <Link href="/account">My Account</Link>
-
-                <Link href="/cart" className="relative">
-                  <TrolleyIcon className="cursor-pointer h-8 w-8" />
-                  {totalItems > 0 && (
-                    <span className="absolute top-0 right-0 bg-lime-500 text-black text-xs font-bold rounded-full px-1">
-                      {totalItems}
-                    </span>
-                  )}
-                </Link>
               </>
             </SignedIn>
+
+            <Link href="/cart" className="relative">
+              <TrolleyIcon className="cursor-pointer h-8 w-8" />
+              {totalItems > 0 && (
+                <span className="absolute top-0 right-0 bg-lime-500 text-black text-xs font-bold rounded-full px-1">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
 
             {user ? (
               <div className="flex items-center space-x-2">

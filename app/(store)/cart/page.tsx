@@ -1,12 +1,18 @@
 "use client";
 
+import {
+  createCheckoutSession,
+  Metadata,
+} from "@/actions/createCheckoutSession";
+import Loader from "@/components/Loader";
 import { QuantityButton } from "@/components/QuantityButton";
 import { Button } from "@/components/ui/button";
 import { imageUrl } from "@/lib/imageUrl";
 import useCartStore from "@/store/store";
-import { useAuth, useUser } from "@clerk/nextjs";
+import { SignInButton, useAuth, useUser } from "@clerk/nextjs";
+import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 function CartPage() {
@@ -17,28 +23,57 @@ function CartPage() {
   const { isSignedIn } = useAuth();
   const { user } = useUser();
 
-  const router = useRouter();
-
   const [isClient, setIsClient] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  if (!isClient) return null;
+  if (!isClient) return <Loader />;
+
+  const handleCheckout = async () => {
+    if (!isSignedIn) return;
+
+    setIsLoading(true);
+
+    try {
+      const metadata: Metadata = {
+        orderNumber: crypto.randomUUID(),
+        customerName: user?.fullName ?? "Unknown",
+        customerEmail: user?.emailAddresses[0].emailAddress ?? "Unknown",
+        clerkUserId: user!.id,
+      };
+
+      const checkoutUrl = await createCheckoutSession(groupedItems, metadata);
+
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
+      }
+    } catch (error) {
+      console.error("Error creating a checkout session: ", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   if (!groupedItems.length) {
     return (
-      <div className="mt-5">
-        <h1>Your cart is empty</h1>
+      <div className="mt-4">
+        <h1 className="text-2xl font-bold mb-4 md:mb-8">Your cart is empty</h1>
         <p>Looks like you haven&apos;t added anything to your cart yet.</p>
       </div>
     );
   }
 
   return (
-    <div className="my-5">
-      <h1 className="text-2xl font-bold mb-4 md:mb-8">My Cart</h1>
+    <div className="my-4">
+      <div className="flex items-center gap-2 mb-4 md:mb-8">
+        <Link href="/" className="flex items-center justify-center h-8 w-8">
+          <ChevronLeft className="h-6 w-6" />
+        </Link>
+        <h1 className="text-2xl font-bold">My Cart</h1>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
@@ -107,7 +142,7 @@ function CartPage() {
         </div>
 
         <div className="lg:col-span-1">
-          <div className="flex flex-col gap-3 md:gap-4 p-3 md:p-5 border border-gray-100 rounded-xl bg-white shadow-sm">
+          <div className="lg:sticky lg:top-4 flex flex-col gap-3 md:gap-4 p-3 md:p-5 border border-gray-100 rounded-xl bg-white shadow-sm">
             <h2 className="text-lg font-semibold">Order Summary</h2>
 
             <div className="flex justify-between">
@@ -126,13 +161,21 @@ function CartPage() {
                 <h2>${totalPrice.toFixed(2)}</h2>
               </div>
 
-              <Button
-                onClick={() => router.push("/checkout")}
-                disabled={!isSignedIn}
-                className="w-full text-base h-12 rounded-xl"
-              >
-                {isSignedIn ? "Checkout" : "Sign in to Checkout"}
-              </Button>
+              {isSignedIn ? (
+                <Button
+                  onClick={handleCheckout}
+                  disabled={isLoading}
+                  className="w-full text-base h-12 rounded-xl"
+                >
+                  {isLoading ? "Processing..." : "Checkout"}
+                </Button>
+              ) : (
+                <SignInButton mode="modal">
+                  <Button className="text-base w-full h-12 rounded-xl">
+                    Login to Checkout
+                  </Button>
+                </SignInButton>
+              )}
             </div>
           </div>
         </div>
