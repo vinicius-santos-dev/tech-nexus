@@ -79,7 +79,7 @@ export const orderType = defineType({
             prepare(selection) {
               return {
                 title: `${selection.product} x ${selection.quantity}`,
-                subtitle: `${selection.currency}${selection.quantity * selection.price}`,
+                subtitle: `${selection.quantity * selection.price}`,
                 media: selection.image,
               };
             },
@@ -132,14 +132,14 @@ export const orderType = defineType({
       amount: "totalPrice",
       currency: "currency",
       orderId: "orderNumber",
-      email: "email",
+      email: "customerEmail",
     },
     prepare(selection) {
       const orderIdSnippet = `${selection.orderId.slice(0, 5)}...${selection.orderId.slice(-5)}`;
 
       return {
         title: `${selection.name} (${orderIdSnippet})`,
-        subtitle: `${selection.currency}${selection.amount}, ${selection.email}`,
+        subtitle: `${selection.currency} ${selection.amount}, ${selection.email}`,
         media: BasketIcon,
       };
     },

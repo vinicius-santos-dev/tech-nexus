@@ -50,7 +50,7 @@ export async function createCheckoutSession(
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_creation: customerId ? undefined : "always",
-      customer_email: customerId ? metadata.customerEmail : undefined,
+      customer_email: !customerId ? metadata.customerEmail : undefined,
       metadata,
       mode: "payment",
       allow_promotion_codes: true,
@@ -61,7 +61,7 @@ export async function createCheckoutSession(
           currency: "usd",
           unit_amount: Math.round(item.product.price! * 100),
           product_data: {
-            name: item.product.name || "Unknown product",
+            name: item.product.name || "Unnamed Product",
             description: `Product ID: ${item.product._id}`,
             metadata: {
               id: item.product._id,

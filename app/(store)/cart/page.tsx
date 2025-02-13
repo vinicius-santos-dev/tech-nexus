@@ -146,7 +146,7 @@ function CartPage() {
             <h2 className="text-lg font-semibold">Order Summary</h2>
 
             <div className="flex justify-between">
-              <p>Subtotal ({totalItems} items)</p>
+              <p>Subtotal ({totalItems} item{totalItems > 1 ? "s" : ""})</p>
               <p>${totalPrice.toFixed(2)}</p>
             </div>
 
