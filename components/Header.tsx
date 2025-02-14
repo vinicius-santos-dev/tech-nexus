@@ -49,13 +49,12 @@ function Header() {
 
         {/* TODO: change the spacings when signed in and signed out */}
         <nav className="flex gap-8 items-center text-sm sm:text-base">
-          <Link href="/">Home</Link>
-          <Link href="/shop">Shop</Link>
+          <Link href="/">Shop</Link>
 
           <ClerkLoaded>
             <SignedIn>
               <>
-                <Link href="/account">My Account</Link>
+                <Link href="/orders">Orders</Link>
               </>
             </SignedIn>
 

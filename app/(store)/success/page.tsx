@@ -35,11 +35,11 @@ function SuccessPage() {
 
         <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <Button className="w-full sm:w-auto" asChild>
-            <Link href={`/orders/${orderNumber}`}>View Order Details</Link>
+            <Link href={`/orders`}>View Order Details</Link>
           </Button>
 
           <Button variant="outline" className="w-full sm:w-auto" asChild>
-            <Link href="/">Back to Store</Link>
+            <Link href="/">Start Shopping</Link>
           </Button>
         </div>
       </div>

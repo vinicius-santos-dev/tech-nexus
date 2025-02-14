@@ -40,7 +40,7 @@ export default function RootLayout({
         <body
           className={`${poppins.variable} ${roboto.variable} ${exo2.variable} antialiased`}
         >
-          <main className="">
+          <main>
             <Header />
             <div className="min-h-screen px-3 sm:px-6  max-w-7xl mx-auto">
               {children}
