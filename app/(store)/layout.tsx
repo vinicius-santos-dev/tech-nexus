@@ -1,9 +1,12 @@
+import { DisableDraftMode } from "@/components/DisableDraftMode";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { SanityLive } from "@/sanity/lib/live";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
+import { VisualEditing } from "next-sanity";
 import { Exo_2, Poppins, Roboto } from "next/font/google";
+import { draftMode } from "next/headers";
 import "../globals.css";
 
 const exo2 = Exo_2({
@@ -29,7 +32,7 @@ export const metadata: Metadata = {
   description: "E-commerce store for tech products",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -40,6 +43,13 @@ export default function RootLayout({
         <body
           className={`${poppins.variable} ${roboto.variable} ${exo2.variable} antialiased`}
         >
+          {(await draftMode()).isEnabled && (
+            <>
+              <DisableDraftMode />
+              <VisualEditing />
+            </>
+          )}
+
           <main>
             <Header />
             <div className="min-h-screen px-3 sm:px-6  max-w-7xl mx-auto">

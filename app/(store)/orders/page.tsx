@@ -133,7 +133,7 @@ async function OrdersPage() {
                           <p className="font-medium">
                             {formatPrice(item.product.price! * item.quantity!)}
                           </p>
-                          {item.quantity! == 1 && (
+                          {item.quantity! > 1 && (
                             <p className="text-sm text-gray-500">
                               {formatPrice(item.product.price)} each
                             </p>
