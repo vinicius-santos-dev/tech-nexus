@@ -47,7 +47,6 @@ function Header() {
           </div>
         </Form>
 
-        {/* TODO: change the spacings when signed in and signed out */}
         <nav className="flex gap-8 items-center text-sm sm:text-base">
           <Link
             href="/"
