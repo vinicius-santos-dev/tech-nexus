@@ -10,7 +10,7 @@ export const client = createClient({
   stega: {
     studioUrl:
       process.env.NODE_ENV === "production" // if it doesnt work:  process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}/studio`
+        ? `${process.env.NEXT_PUBLIC_DOMAIN_URL}/studio`
         : `${process.env.NEXT_PUBLIC_BASE_URL}/studio`,
   },
 });

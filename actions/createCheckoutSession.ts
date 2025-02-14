@@ -44,7 +44,7 @@ export async function createCheckoutSession(
     }
 
     const baseUrl = process.env.VERCEL_URL 
-  ? `https://${process.env.VERCEL_URL}` 
+  ? process.env.NEXT_PUBLIC_DOMAIN_URL 
   : process.env.NEXT_PUBLIC_BASE_URL;
 
     const session = await stripe.checkout.sessions.create({
