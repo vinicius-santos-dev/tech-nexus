@@ -37,29 +37,39 @@ function Filter({ categories, onFilterChange }: FilterProps) {
       <Select
         defaultValue=""
         onValueChange={(value) => handleFilterChange("categoryId", value)}
+        name="category"
       >
-        <SelectTrigger name="category" className="w-full sm:w-[150px] rounded-xl focus:ring-0">
-          <SelectValue aria-label="category" placeholder="All Categories">
+        <SelectTrigger
+          name="category"
+          className="w-full sm:w-[150px] rounded-xl focus:ring-0"
+        >
+          <SelectValue placeholder="All Categories">
             {selectedCategory ? selectedCategory.title : "All Categories"}
           </SelectValue>
         </SelectTrigger>
         <SelectContent>
           {filters.categoryId && filters.categoryId !== "all" && (
-            <SelectItem value="all" aria-label="category">All Categories</SelectItem>
+            <SelectItem value="all">All Categories</SelectItem>
           )}
           {categories.map((category) => (
-            <SelectItem key={category._id} aria-label="category" value={category._id || ""}>
+            <SelectItem key={category._id} value={category._id || ""}>
               {category.title}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
 
-      <Select onValueChange={(value) => handleFilterChange("sort", value)}>
-        <SelectTrigger className="w-full sm:w-[150px] rounded-xl focus:ring-0">
-          <SelectValue aria-label="sort" placeholder="Sort by" />
+      <Select
+        onValueChange={(value) => handleFilterChange("sort", value)}
+        name="sort"
+      >
+        <SelectTrigger
+          className="w-full sm:w-[150px] rounded-xl focus:ring-0"
+          name="sort"
+        >
+          <SelectValue placeholder="Sort by" />
         </SelectTrigger>
-        <SelectContent aria-label="sort">
+        <SelectContent>
           <SelectItem value="nameAsc">A to Z</SelectItem>
           <SelectItem value="nameDesc">Z to A</SelectItem>
           <SelectItem value="priceAsc">Lowest Price</SelectItem>

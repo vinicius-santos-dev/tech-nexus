@@ -14,7 +14,7 @@ async function BlackFridayBanner() {
         width={1200}
         height={400}
         className="object-cover w-full h-full absolute"
-        priority
+        priority={true}
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1200px"
       />
 
