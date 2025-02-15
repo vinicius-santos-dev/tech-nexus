@@ -11,11 +11,13 @@ async function BlackFridayBanner() {
       <Image
         src="/assets/blackfriday-banner.jpg"
         alt="Black Friday Banner"
-        fill
-        className="object-cover"
+        width={1200}
+        height={400}
+        className="object-cover w-full h-full absolute"
         priority
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1200px"
       />
-      
+
       <div className="absolute inset-0 bg-gradient-to-r from-lime-700/90 via-lime-600/80 to-black/90" />
 
       <div className="relative px-4 sm:px-6 py-5 sm:py-10">
@@ -32,7 +34,7 @@ async function BlackFridayBanner() {
               <div className="bg-white w-full sm:w-fit text-center text-black py-4 px-4 sm:px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
                 <span className="font-bold text-lg sm:text-2xl">
                   Use code:{" "}
-                  <span className="text-lime-600 tracking-wider">
+                  <span className="text-lime-700 tracking-wider">
                     {sale.couponCode}{" "}
                   </span>
                 </span>

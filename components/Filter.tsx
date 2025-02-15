@@ -37,30 +37,29 @@ function Filter({ categories, onFilterChange }: FilterProps) {
       <Select
         defaultValue=""
         onValueChange={(value) => handleFilterChange("categoryId", value)}
-        name="category"
       >
-        <SelectTrigger className="w-full sm:w-[150px] rounded-xl focus:ring-0">
-          <SelectValue placeholder="All Categories">
+        <SelectTrigger name="category" className="w-full sm:w-[150px] rounded-xl focus:ring-0">
+          <SelectValue aria-label="category" placeholder="All Categories">
             {selectedCategory ? selectedCategory.title : "All Categories"}
           </SelectValue>
         </SelectTrigger>
         <SelectContent>
           {filters.categoryId && filters.categoryId !== "all" && (
-            <SelectItem value="all">All Categories</SelectItem>
+            <SelectItem value="all" aria-label="category">All Categories</SelectItem>
           )}
           {categories.map((category) => (
-            <SelectItem key={category._id} value={category._id || ""}>
+            <SelectItem key={category._id} aria-label="category" value={category._id || ""}>
               {category.title}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
 
-      <Select onValueChange={(value) => handleFilterChange("sort", value)} name="sort">
+      <Select onValueChange={(value) => handleFilterChange("sort", value)}>
         <SelectTrigger className="w-full sm:w-[150px] rounded-xl focus:ring-0">
-          <SelectValue placeholder="Sort by" />
+          <SelectValue aria-label="sort" placeholder="Sort by" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent aria-label="sort">
           <SelectItem value="nameAsc">A to Z</SelectItem>
           <SelectItem value="nameDesc">Z to A</SelectItem>
           <SelectItem value="priceAsc">Lowest Price</SelectItem>
