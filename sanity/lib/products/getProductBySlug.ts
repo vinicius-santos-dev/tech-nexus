@@ -15,6 +15,7 @@ export const getProductBySlug = async (slug: string) => {
       query: GET_PRODUCT_BY_SLUG_QUERY,
       params: { slug },
     });
+
     return product.data || null;
   } catch (error) {
     console.error("Error fetching product by ID: ", error);

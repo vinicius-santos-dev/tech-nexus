@@ -443,6 +443,20 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   stock?: number;
 }>;
 
+// Source: ./sanity/lib/products/getCategoryById.ts
+// Variable: GET_CATEGORY_BY_ID_QUERY
+// Query: *[_type == "category" && _id == $id] | order(title asc) [0]
+export type GET_CATEGORY_BY_ID_QUERYResult = {
+  _id: string;
+  _type: "category";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  description?: string;
+} | null;
+
 // Source: ./sanity/lib/products/getProductBySlug.ts
 // Variable: GET_PRODUCT_BY_SLUG_QUERY
 // Query: *[_type == "product" && slug.current == $slug] | order(name asc) [0]     // {    //   ...,    //   "categories": categories[]->{title, slug},    // }
@@ -594,6 +608,7 @@ declare module "@sanity/client" {
     "\n    *[_type == \"order\" && clerkUserId == $userId] | order(orderDate desc) {\n      ...,\n      products[]{\n        ...,\n        product->\n      }\n    }": MY_ORDERS_QUERYResult;
     "*[_type == \"category\"] | order(name asc)": ALL_CATEGORIES_QUERYResult;
     "*[_type == \"product\"] | order(name asc)": ALL_PRODUCTS_QUERYResult;
+    "\n    *[_type == \"category\" && _id == $id] | order(title asc) [0]\n    ": GET_CATEGORY_BY_ID_QUERYResult;
     "\n    *[_type == \"product\" && slug.current == $slug] | order(name asc) [0] \n    // {\n    //   ...,\n    //   \"categories\": categories[]->{title, slug},\n    // }\n    ": GET_PRODUCT_BY_SLUG_QUERYResult;
     "\n  *[_type == \"product\" && name match $searchParam] | order(name asc)\n  ": SEARCH_PRODUCTS_QUERYResult;
     "\n    *[_type == \"sale\" && couponCode == $couponCode && isActive == true] | order(validFrom desc)[0]\n    ": ACTIVE_SALE_BY_COUPON_CODE_QUERYResult;

@@ -23,7 +23,7 @@ function ProductCard({ product }: { product: Product }) {
         {product.image && (
           <Image
             className="object-contain bg-gray-100 transition-transform duration-300 group-hover:scale-105"
-            src={imageUrl(product.image).url()}
+            src={imageUrl(product.image).width(294).height(294).url()}
             alt={product.name || "Product image"}
             fill
             sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw"

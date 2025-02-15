@@ -33,7 +33,7 @@ async function OrdersPage() {
   }
 
   return (
-    <div className="container mx-auto flex flex-col mt-4 gap-4 sm:gap-8">
+    <div className="container mx-auto flex flex-col my-4 gap-4 sm:gap-8">
       <h1 className="text-2xl font-bold">My Orders</h1>
 
       <div className="space-y-6">
@@ -66,7 +66,7 @@ async function OrdersPage() {
 
               <div className="space-y-1">
                 <p className="text-sm text-gray-500 md:text-end">Total</p>
-                <div>
+                <div className="text-start md:text-end">
                   {order.amountDiscount ? (
                     <>
                       <div className="space-y-1">

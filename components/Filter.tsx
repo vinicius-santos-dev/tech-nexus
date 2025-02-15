@@ -37,6 +37,7 @@ function Filter({ categories, onFilterChange }: FilterProps) {
       <Select
         defaultValue=""
         onValueChange={(value) => handleFilterChange("categoryId", value)}
+        name="category"
       >
         <SelectTrigger className="w-full sm:w-[150px] rounded-xl focus:ring-0">
           <SelectValue placeholder="All Categories">
@@ -55,7 +56,7 @@ function Filter({ categories, onFilterChange }: FilterProps) {
         </SelectContent>
       </Select>
 
-      <Select onValueChange={(value) => handleFilterChange("sort", value)}>
+      <Select onValueChange={(value) => handleFilterChange("sort", value)} name="sort">
         <SelectTrigger className="w-full sm:w-[150px] rounded-xl focus:ring-0">
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>

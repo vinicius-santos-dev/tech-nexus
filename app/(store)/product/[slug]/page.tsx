@@ -1,5 +1,6 @@
 import AddToCartButton from "@/components/AddToCartButton";
 import { imageUrl } from "@/lib/imageUrl";
+import { getCategoryById } from "@/sanity/lib/products/getCategoryById";
 import { getProductBySlug } from "@/sanity/lib/products/getProductBySlug";
 import { PortableText } from "next-sanity";
 import Image from "next/image";
@@ -10,7 +11,9 @@ export const revalidate = 86400;
 
 async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+
   const product = await getProductBySlug(slug);
+  const category = await getCategoryById(product?.categories![0]._ref || "");
 
   const isInStock = product?.stock && product.stock > 0;
 
@@ -35,15 +38,14 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
         <h1 className="text-2xl sm:text-5xl font-bold">{product.name}</h1>
 
         <div className="flex flex-wrap gap-3">
-          {/* TODO: Add category title (i have to create another help function to get category by id) */}
-          {/* {product.categories?.map((category) => (
+          {category && (
             <span
               key={category.title}
               className="px-3 py-1 text-sm bg-gray-100 rounded-full"
             >
               {category.title}
             </span>
-          ))} */}
+          )}
 
           <span
             className={`px-3 py-1 text-sm rounded-full ${
