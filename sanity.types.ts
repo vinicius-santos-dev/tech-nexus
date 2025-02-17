@@ -282,7 +282,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/orders/getMyOrders.ts
 // Variable: MY_ORDERS_QUERY
-// Query: *[_type == "order" && clerkUserId == $userId] | order(orderDate desc) {      ...,      products[]{        ...,        product->      }    }
+// Query: *[_type == "order" && clerkUserId == $userId] | order(orderDate desc) {      ...,      products[]{        ...,        product-> // Expand product reference to full product document      }    }
 export type MY_ORDERS_QUERYResult = Array<{
   _id: string;
   _type: "order";
@@ -365,6 +365,24 @@ export type MY_ORDERS_QUERYResult = Array<{
   status?: "cancelled" | "delivered" | "paid" | "pending" | "shipped";
   orderDate?: string;
 }>;
+
+// Source: ./sanity/lib/sales/getActiveSaleByCouponCode.ts
+// Variable: ACTIVE_SALE_BY_COUPON_CODE_QUERY
+// Query: *[_type == "sale" && couponCode == $couponCode && isActive == true] | order(validFrom desc)[0]
+export type ACTIVE_SALE_BY_COUPON_CODE_QUERYResult = {
+  _id: string;
+  _type: "sale";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  description?: string;
+  discountAmount?: number;
+  couponCode?: string;
+  validFrom?: string;
+  validUntil?: string;
+  isActive?: boolean;
+} | null;
 
 // Source: ./sanity/lib/products/getAllCategories.ts
 // Variable: ALL_CATEGORIES_QUERY
@@ -583,34 +601,16 @@ export type SEARCH_PRODUCTS_QUERYResult = Array<{
   stock?: number;
 }>;
 
-// Source: ./sanity/lib/sales/getActiveSaleByCouponCode.ts
-// Variable: ACTIVE_SALE_BY_COUPON_CODE_QUERY
-// Query: *[_type == "sale" && couponCode == $couponCode && isActive == true] | order(validFrom desc)[0]
-export type ACTIVE_SALE_BY_COUPON_CODE_QUERYResult = {
-  _id: string;
-  _type: "sale";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  description?: string;
-  discountAmount?: number;
-  couponCode?: string;
-  validFrom?: string;
-  validUntil?: string;
-  isActive?: boolean;
-} | null;
-
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n    *[_type == \"order\" && clerkUserId == $userId] | order(orderDate desc) {\n      ...,\n      products[]{\n        ...,\n        product->\n      }\n    }": MY_ORDERS_QUERYResult;
+    "\n    *[_type == \"order\" && clerkUserId == $userId] | order(orderDate desc) {\n      ...,\n      products[]{\n        ...,\n        product-> // Expand product reference to full product document\n      }\n    }": MY_ORDERS_QUERYResult;
+    "\n    *[_type == \"sale\" && couponCode == $couponCode && isActive == true] | order(validFrom desc)[0]\n    ": ACTIVE_SALE_BY_COUPON_CODE_QUERYResult;
     "*[_type == \"category\"] | order(name asc)": ALL_CATEGORIES_QUERYResult;
     "*[_type == \"product\"] | order(name asc)": ALL_PRODUCTS_QUERYResult;
     "\n    *[_type == \"category\" && _id == $id] | order(title asc) [0]\n    ": GET_CATEGORY_BY_ID_QUERYResult;
     "\n    *[_type == \"product\" && slug.current == $slug] | order(name asc) [0] \n    // {\n    //   ...,\n    //   \"categories\": categories[]->{title, slug},\n    // }\n    ": GET_PRODUCT_BY_SLUG_QUERYResult;
     "\n  *[_type == \"product\" && name match $searchParam] | order(name asc)\n  ": SEARCH_PRODUCTS_QUERYResult;
-    "\n    *[_type == \"sale\" && couponCode == $couponCode && isActive == true] | order(validFrom desc)[0]\n    ": ACTIVE_SALE_BY_COUPON_CODE_QUERYResult;
   }
 }

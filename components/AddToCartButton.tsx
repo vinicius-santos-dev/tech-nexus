@@ -11,6 +11,16 @@ interface AddToCartButtonProps {
   isDisabled: boolean;
 }
 
+/**
+ * AddToCartButton Component:
+ * Handles adding products to shopping cart with visual feedback
+ * 
+ * Features:
+ * - Client-side rendering to prevent hydration issues
+ * - Toast notifications for user feedback
+ * - Disabled state for out-of-stock products
+ * - Zustand store integration for cart management
+ */
 export default function AddToCartButton({
   product,
   isDisabled,

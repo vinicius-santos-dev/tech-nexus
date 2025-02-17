@@ -1,6 +1,10 @@
 import { BasketIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
+/**
+ * Order Schema Type Definition for Sanity CMS:
+ * Defines the structure for e-commerce orders with customer, product, and payment details
+ */
 export const orderType = defineType({
   name: "order",
   title: "Orders",

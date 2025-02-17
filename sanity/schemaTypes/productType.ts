@@ -1,6 +1,10 @@
 import { TrolleyIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
+/**
+ * Product Schema Type Definition for Sanity CMS:
+ * Defines the structure and validation for e-commerce products
+ */
 export const productType = defineType({
   name: "product",
   title: "Products",

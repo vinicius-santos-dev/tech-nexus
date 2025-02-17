@@ -4,6 +4,14 @@ import { Product } from "@/sanity.types";
 import { AnimatePresence, motion } from "framer-motion";
 import ProductCard from "./ProductCard";
 
+/**
+ * ProductGrid Component: 
+ * A responsive grid layout component that displays product cards with animation effects.
+ *
+ * Features:
+ * - Responsive grid layout (2 columns mobile, 3 tablets, 4 desktop)
+ * - Animated product card entry/exit using Framer Motion
+ */
 function ProductGrid({ products }: { products: Product[] }) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

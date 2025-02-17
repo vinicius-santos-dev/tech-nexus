@@ -16,6 +16,14 @@ interface FilterProps {
   onFilterChange: (filters: FilterOptions) => void;
 }
 
+/**
+ * Filter Component:
+ * Provides category and sort filtering for product listing
+ * 
+ * Features:
+ * - Category selection from dropdown
+ * - Sort order controls (name, price, date)
+ */
 function Filter({ categories, onFilterChange }: FilterProps) {
   const [filters, setFilters] = useState<FilterOptions>({
     categoryId: "",
@@ -26,6 +34,11 @@ function Filter({ categories, onFilterChange }: FilterProps) {
     (category) => category._id === filters.categoryId
   );
 
+  /**
+   * Handles filter changes and notifies parent
+   * @param key - Filter key to update (categoryId or sort)
+   * @param value - New filter value
+   */
   const handleFilterChange = (key: keyof FilterOptions, value: string) => {
     const newFilters = { ...filters, [key]: value } as FilterOptions;
     setFilters(newFilters);

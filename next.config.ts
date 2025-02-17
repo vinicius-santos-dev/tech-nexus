@@ -7,11 +7,8 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "cdn.sanity.io",
-      }
-    ]
-  },
-  experimental: {
-    optimizePackageImports: ['@clerk/nextjs'],
+      },
+    ],
   },
 };
 

@@ -3,6 +3,17 @@ import { Product } from "@/sanity.types";
 import Image from "next/image";
 import Link from "next/link";
 
+/**
+ * ProductCard Component:
+ * Displays a product in a card format with image, name, description and price.
+ *
+ * Features:
+ * - Responsive image with hover scaling effect
+ * - Out of stock overlay when product is unavailable
+ * - Truncated name and description for consistent layout
+ * - Price formatting with 2 decimal places
+ * - Links to individual product page
+ */
 function ProductCard({ product }: { product: Product }) {
   const isOutOfStock = product.stock != null && product.stock <= 0;
 

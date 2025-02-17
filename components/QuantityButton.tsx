@@ -11,20 +11,32 @@ interface QuantityButtonProps {
   quantity: number;
 }
 
+/**
+ * QuantityButton Component:
+ * Provides increment, decrement, and remove functionality with visual feedback.
+ *
+ * Features:
+ * - Integration with cart store
+ * - Toast notifications for actions
+ */
 export function QuantityButton({ product, quantity }: QuantityButtonProps) {
   const { addItem, removeItem } = useCartStore();
   const { toast } = useToast();
 
+   /**
+   * Handles removing item from cart.
+   * Shows toast notification on successful removal
+   */
   const handleRemoveItem = () => {
-  removeItem(product._id, () => {
-    toast({
-      title: "Removed from Cart",
-      description: `${product.name} was removed from your cart`,
-      variant: "destructive",
-      duration: 3000,
+    removeItem(product._id, () => {
+      toast({
+        title: "Removed from Cart",
+        description: `${product.name} was removed from your cart`,
+        variant: "destructive",
+        duration: 3000,
+      });
     });
-  });
-};
+  };
 
   return (
     <div className="flex items-center gap-3 border border-gray-200 rounded-3xl overflow-hidden">

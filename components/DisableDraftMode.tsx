@@ -3,6 +3,15 @@
 import { useDraftModeEnvironment } from "next-sanity/hooks";
 import { useRouter } from "next/navigation";
 
+/**
+ * DisableDraftMode Component:
+ * Provides UI control for disabling Sanity draft mode preview
+ * 
+ * Features:
+ * - Client-side draft mode toggle
+ * - Environment-aware rendering
+ * - Automatic router refresh after toggle
+ */
 export function DisableDraftMode() {
   const environment = useDraftModeEnvironment();
   const router = useRouter();

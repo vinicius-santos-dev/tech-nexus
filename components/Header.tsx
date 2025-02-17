@@ -9,32 +9,12 @@ import {
   UserButton,
   useUser,
 } from "@clerk/nextjs";
-import { SearchIcon, TrolleyIcon } from "@sanity/icons";
+import { TrolleyIcon } from "@sanity/icons";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
+import Search from "./Search";
 
 function Header() {
   const { user } = useUser();
-  const [searchQuery, setSearchQuery] = useState("");
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const debouncedSearch = useDebouncedCallback((query: string) => {
-    if (query) {
-      router.push(`/search?query=${encodeURIComponent(query)}`);
-    } else if (pathname === "/search") {
-      router.push("/");
-    }
-  }, 500);
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-
-    setSearchQuery(value);
-    debouncedSearch(value);
-  };
 
   const totalItems = useCartStore((state) => state.getTotalItems());
 
@@ -49,22 +29,7 @@ function Header() {
       <div className="flex flex-1 w-full flex-col-reverse sm:flex-row items-center justify-between gap-3">
         <div></div>
 
-        <div className="relative max-w-md w-full mt-3 sm:mt-0">
-          <div className="relative flex items-center">
-            <SearchIcon className="absolute left-2 w-7 h-7 text-gray-400 pointer-events-none" />
-            <input
-              type="text"
-              placeholder="Search for products..."
-              value={searchQuery}
-              onChange={handleSearch}
-              name="query"
-              className="w-full py-2 px-4 pl-10 bg-gray-100 border border-gray-200 
-                        rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 
-                        focus:border-transparent transition-all duration-200 
-                      placeholder-gray-400"
-            />
-          </div>
-        </div>
+        <Search />
 
         <nav className="flex gap-8 items-center text-sm sm:text-base">
           <Link

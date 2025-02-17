@@ -14,6 +14,10 @@ interface ProductsViewProps {
   products: Product[];
 }
 
+/**
+ * ProductsView Component:
+ * A component that manages product filtering by categories and displays the filtered products.
+ */
 function ProductsView({ categories, products }: ProductsViewProps) {
   const [filteredProducts, setFilteredProducts] = useState(products);
 
@@ -23,11 +27,10 @@ function ProductsView({ categories, products }: ProductsViewProps) {
   };
   return (
     <div className="flex flex-col">
-      {/* CATEGORIES */}
       <div className="w-full">
         <Filter categories={categories} onFilterChange={handleFilterChange} />
       </div>
-      {/* PRODUCTS */}
+
       <div className="flex-1">
         <div>
           <ProductGrid products={filteredProducts} />

@@ -1,6 +1,10 @@
 import Link from "next/link";
 import CurrentYear from "./CurrentYear";
 
+/**
+ * Footer Component:
+ * Main footer for the e-commerce application
+ */
 function Footer() {
   return (
     <footer className="bg-black flex flex-col items-center justify-center min-h-48 gap-3 text-white pb-6 sm:pb-0">

@@ -1,6 +1,10 @@
 import { TagIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
+/**
+ * Sales/Promotions Schema Type Definition for Sanity CMS:
+ * Manages promotional campaigns, discounts, and coupon codes
+ */
 export const salesType = defineType({
   name: "sale",
   title: "Sales",

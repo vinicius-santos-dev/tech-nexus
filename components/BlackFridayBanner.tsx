@@ -1,6 +1,10 @@
 import { getActiveSaleByCouponCode } from "@/sanity/lib/sales/getActiveSaleByCouponCode";
 import Image from "next/image";
 
+/**
+ * BlackFridayBanner Component:
+ * Displays promotional banner for active Black Friday sales
+ */
 async function BlackFridayBanner() {
   const sale = await getActiveSaleByCouponCode("BFRIDAY");
 

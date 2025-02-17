@@ -16,6 +16,14 @@ export type GroupedCartItem = {
   quantity: number;
 };
 
+/**
+ * Server action to create a Stripe checkout session:
+ * Handles cart validation, customer management, and session creation
+ * 
+ * @param items - Array of grouped cart items to checkout
+ * @param metadata - Customer and order information
+ * @returns Promise with checkout session URL or undefined if error
+ */
 export async function createCheckoutSession(
   items: GroupedCartItem[],
   metadata: Metadata

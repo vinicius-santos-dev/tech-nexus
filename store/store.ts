@@ -18,6 +18,12 @@ export interface CartState {
   getGroupedItems: () => CartItem[];
 }
 
+/**
+ * Cart Store with Zustand: 
+ * Manages shopping cart state with persistence, stores cart data in localStorage
+ * 
+ * Handles adding, removing, and calculating cart items
+ */
 const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({

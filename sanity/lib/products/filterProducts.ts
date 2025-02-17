@@ -13,6 +13,10 @@ export type FilterOptions = {
   sort?: SortOption;
 };
 
+/**
+ * Helper function to filter products by category and sort by price:
+ * Provides dynamic filtering and sorting for the product catalog
+ */
 export function filterProducts(products: Product[], options: FilterOptions) {
   let filteredProducts = [...products];
 
