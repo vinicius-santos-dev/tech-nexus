@@ -59,9 +59,11 @@ function CartPage() {
 
   if (!groupedItems.length) {
     return (
-      <div className="mt-4">
-        <h1 className="text-2xl font-bold mb-4 md:mb-8">Your cart is empty</h1>
-        <p>Looks like you haven&apos;t added anything to your cart yet.</p>
+      <div className="flex flex-col items-center justify-start sm:justify-center min-h-[calc(100vh-142px)]">
+        <div className="p-8 rounded-xl shadow-lg w-full max-w-2xl border border-gray-100 text-center">
+          <h1 className="text-2xl sm:text-3xl font-bold">Your cart is empty</h1>
+          <p>Looks like you haven&apos;t added anything to your cart yet.</p>
+        </div>
       </div>
     );
   }
@@ -146,7 +148,9 @@ function CartPage() {
             <h2 className="text-lg font-semibold">Order Summary</h2>
 
             <div className="flex justify-between">
-              <p>Subtotal ({totalItems} item{totalItems > 1 ? "s" : ""})</p>
+              <p>
+                Subtotal ({totalItems} item{totalItems > 1 ? "s" : ""})
+              </p>
               <p>${totalPrice.toFixed(2)}</p>
             </div>
 

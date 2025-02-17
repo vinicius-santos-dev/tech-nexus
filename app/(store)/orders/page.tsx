@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/formatPrice";
 import { imageUrl } from "@/lib/imageUrl";
 import { getMyOrders } from "@/sanity/lib/orders/getMyOrders";
@@ -18,16 +19,13 @@ async function OrdersPage() {
   if (!orders.length) {
     return (
       <div className="flex flex-col items-center justify-start sm:justify-center min-h-[calc(100vh-142px)]">
-        <h1 className="text-2xl font-bold mb-4">No orders yet</h1>
-        <p className="text-gray-500 mb-8">
-          When you place an order, it will appear here
-        </p>
-        <Link
-          href="/"
-          className="text-lime-600 hover:text-lime-700 font-medium"
-        >
-          Start Shopping
-        </Link>
+        <div className="p-8 rounded-xl shadow-lg w-full max-w-2xl border border-gray-100 text-center">
+          <h1 className="text-2xl sm:text-3xl font-bold">No orders yet</h1>
+          <p className="mb-8">When you place an order, it will appear here</p>
+          <Button asChild>
+            <Link href="/">Start Shopping</Link>
+          </Button>
+        </div>
       </div>
     );
   }

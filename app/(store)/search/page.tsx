@@ -16,7 +16,7 @@ async function SearchPage({
           <h1 className="text-2xl sm:text-3xl font-bold">
             No results found for &quot;{query}&quot;
           </h1>
-          <p className="text-gray-500">
+          <p>
             Try searching with different keywords.
           </p>
         </div>
