@@ -10,7 +10,7 @@ export interface CartItem {
 export interface CartState {
   items: CartItem[];
   addItem: (product: Product) => void;
-  removeItem: (productId: string) => void;
+  removeItem: (productId: string, onRemove?: () => void) => void;
   clearCart: () => void;
   getTotalPrice: () => number;
   getItemCount: (productId: string) => number;
@@ -42,16 +42,24 @@ const useCartStore = create<CartState>()(
             };
           }
         }),
-      removeItem: (productId: string) =>
-        set((state) => ({
-          items: state.items
-            .map((item) =>
-              item.product._id === productId
-                ? { ...item, quantity: item.quantity - 1 }
-                : item
-            )
-            .filter((item) => item.quantity > 0),
-        })),
+      removeItem: (productId: string, onRemove?: () => void) =>
+        set((state) => {
+          const item = state.items.find(
+            (item) => item.product._id === productId
+          );
+          if (item?.quantity === 1) {
+            onRemove?.();
+          }
+          return {
+            items: state.items
+              .map((item) =>
+                item.product._id === productId
+                  ? { ...item, quantity: item.quantity - 1 }
+                  : item
+              )
+              .filter((item) => item.quantity > 0),
+          };
+        }),
       clearCart: () => set({ items: [] }),
       getTotalPrice: () =>
         get().items.reduce(
@@ -62,7 +70,8 @@ const useCartStore = create<CartState>()(
         const item = get().items.find((item) => item.product._id === productId);
         return item?.quantity ?? 0;
       },
-      getTotalItems: () => get().items.reduce((total, item) => total + item.quantity, 0),
+      getTotalItems: () =>
+        get().items.reduce((total, item) => total + item.quantity, 0),
       getGroupedItems: () => get().items,
     }),
     { name: "cart-storage" }

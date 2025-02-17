@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import { Product } from "@/sanity.types";
 import useCartStore from "@/store/store";
 import { Minus, Plus, Trash2 } from "lucide-react";
@@ -12,6 +13,18 @@ interface QuantityButtonProps {
 
 export function QuantityButton({ product, quantity }: QuantityButtonProps) {
   const { addItem, removeItem } = useCartStore();
+  const { toast } = useToast();
+
+  const handleRemoveItem = () => {
+  removeItem(product._id, () => {
+    toast({
+      title: "Removed from Cart",
+      description: `${product.name} was removed from your cart`,
+      variant: "destructive",
+      duration: 3000,
+    });
+  });
+};
 
   return (
     <div className="flex items-center gap-3 border border-gray-200 rounded-3xl overflow-hidden">
@@ -21,7 +34,7 @@ export function QuantityButton({ product, quantity }: QuantityButtonProps) {
         className={`h-8 w-8 rounded-none ${
           quantity === 1 ? "text-red-500 hover:text-red-600" : ""
         }`}
-        onClick={() => removeItem(product._id)}
+        onClick={handleRemoveItem}
       >
         {quantity === 1 ? (
           <Trash2 className="h-4 w-4" />

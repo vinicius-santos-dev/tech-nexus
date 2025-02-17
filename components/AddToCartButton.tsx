@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import { Product } from "@/sanity.types";
 import useCartStore from "@/store/store";
 import { useEffect, useState } from "react";
@@ -15,6 +16,7 @@ export default function AddToCartButton({
   isDisabled,
 }: AddToCartButtonProps) {
   const { addItem } = useCartStore();
+  const { toast } = useToast();
 
   const [isClient, setIsClient] = useState(false);
 
@@ -27,10 +29,20 @@ export default function AddToCartButton({
 
   if (!isClient) return null;
 
+  const handleAddToCart = () => {
+    addItem(product);
+
+    toast({
+      title: "Added to Cart",
+      description: `${product.name} was added to your cart`,
+      className: "bg-primary text-white border-primary",
+      duration: 3000
+    });
+  };
+
   return (
-    // TODO: add toast notifications for adding to cart
     <Button
-      onClick={() => addItem(product)}
+      onClick={handleAddToCart}
       disabled={isDisabled}
       className="max-w-[70%] sm:max-w-none w-full text-base h-12 rounded-xl"
     >
