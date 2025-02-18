@@ -18,11 +18,14 @@ interface FilterProps {
 
 /**
  * Filter Component:
- * Provides category and sort filtering for product listing
+ * Handles UI state for product filtering and sorting
+ * @param {Category[]} categories - Available product categories
+ * @param {Function} onFilterChange - Callback to notify parent of filter changes
  * 
- * Features:
- * - Category selection from dropdown
- * - Sort order controls (name, price, date)
+ * State Flow:
+ * 1. User selects filter option
+ * 2. Local state updates to reflect UI changes
+ * 3. Parent component notified via onFilterChange
  */
 function Filter({ categories, onFilterChange }: FilterProps) {
   const [filters, setFilters] = useState<FilterOptions>({

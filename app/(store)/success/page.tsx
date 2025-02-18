@@ -7,6 +7,22 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
+/**
+ * Success Page Component
+ * 
+ * Displayed after successful checkout completion.
+ * Handles order confirmation and cart cleanup.
+ * 
+ * Features:
+ * - Retrieves order number from URL params
+ * - Clears cart on successful order
+ * - Provides navigation buttons
+ * 
+ * State Management:
+ * - Uses Zustand cart store
+ * - Clears cart items on mount
+ * - Preserves order number for display
+ */
 function SuccessPage() {
   const searchParams = useSearchParams();
   const orderNumber = searchParams.get("orderNumber");

@@ -24,7 +24,7 @@ function Search() {
 
   const debouncedSearch = useDebouncedCallback((query: string) => {
     if (query) {
-      router.push(`/search?query=${encodeURIComponent(query)}`);
+      router.push(`/search?query=${encodeURIComponent(query)}`); // encodeURIComponent to handle special characters
     } else if (pathname === "/search") {
       router.push("/");
     }

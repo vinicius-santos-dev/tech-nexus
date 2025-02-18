@@ -1,10 +1,21 @@
 import ProductGrid from "@/components/ProductGrid";
 import { searchProductsByName } from "@/sanity/lib/products/searchProductsByName";
 
+/**
+ * Search Page
+ * 
+ * Dynamic server-side rendered page that displays product search results.
+ * Handles query parameters and displays filtered products or empty state.
+ * 
+ * Features:
+ * - Server-side product search
+ * - Query parameter handling
+ * - Empty state handling
+ */
 async function SearchPage({
   searchParams,
 }: {
-  searchParams: Promise<{ query: string }>;
+  searchParams: Promise<{ query: string }>; // Next.js automatically provides this
 }) {
   const { query } = await searchParams;
   const products = await searchProductsByName(query);

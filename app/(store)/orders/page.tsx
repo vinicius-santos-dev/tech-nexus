@@ -7,6 +7,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+/**
+ * Orders Page Component
+ *
+ * Protected page that displays user's order history.
+ * Requires authentication via Clerk.
+ *
+ * Features:
+ * - Authentication check with redirect
+ * - Server-side order fetching
+ * - Empty state handling
+ * - Responsive order list display
+ */
 async function OrdersPage() {
   const { userId } = await auth();
 

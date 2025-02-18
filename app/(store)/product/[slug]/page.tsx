@@ -9,6 +9,18 @@ import { notFound } from "next/navigation";
 export const dynamic = "force-static";
 export const revalidate = 86400;
 
+/**
+ * Product Details Page
+ * 
+ * Dynamic route page that displays detailed information for a single product.
+ * Uses [slug] parameter for product identification and data fetching.
+ * 
+ * Features:
+ * - Dynamic product data fetching
+ * - Responsive layout (mobile/desktop)
+ * - Stock status indication
+ * - Add to cart functionality
+ */
 async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 

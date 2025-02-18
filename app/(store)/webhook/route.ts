@@ -5,6 +5,31 @@ import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
+/**
+ * Stripe Webhook Handler
+ * 
+ * Processes Stripe checkout session completed events and creates orders in Sanity.
+ * 
+ * Flow:
+ * 1. Receive webhook from Stripe
+ * 2. Verify webhook signature
+ * 3. Process checkout.session.completed event
+ * 4. Create order in Sanity
+ * 
+ * Security:
+ * - Validates Stripe signature
+ * - Uses environment variables for secrets
+ * - Handles only specific event types
+ * 
+ * Data Processing:
+ * - Extracts session data from Stripe
+ * - Formats product data for Sanity
+ * - Converts currency amounts (cents to dollars)
+ * - Generates unique order numbers
+ * 
+ * @param {Request} request - Incoming webhook request
+ * @returns {Response} Success/Error response
+ */
 export async function POST(req: NextRequest) {
   const body = await req.text();
   const headersList = await headers();
@@ -35,6 +60,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Handle Stripe webhook event
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
 
@@ -53,6 +79,12 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ received: true });
 }
 
+/**
+ * Creates an order document in Sanity from Stripe checkout session data
+ * 
+ * @param session - Completed Stripe checkout session
+ * @returns Created order document from Sanity
+ */
 async function createOrderInSanity(session: Stripe.Checkout.Session) {
   const {
     id,
@@ -67,6 +99,7 @@ async function createOrderInSanity(session: Stripe.Checkout.Session) {
   const { orderNumber, customerName, customerEmail, clerkUserId } =
     metadata as Metadata;
 
+  // Fetch line items with expanded product data
   const lineItemsWithProduct = await stripe.checkout.sessions.listLineItems(
     id,
     {
@@ -74,6 +107,7 @@ async function createOrderInSanity(session: Stripe.Checkout.Session) {
     }
   );
 
+  // Transform line items into Sanity references
   const sanityProducts = lineItemsWithProduct.data.map((item) => ({
     _key: crypto.randomUUID(),
     product: {
@@ -83,6 +117,7 @@ async function createOrderInSanity(session: Stripe.Checkout.Session) {
     quantity: item.quantity || 0,
   }));
 
+   // Create order document in Sanity
   const order = await backendClient.create({
     _type: "order",
     orderNumber,
@@ -94,10 +129,10 @@ async function createOrderInSanity(session: Stripe.Checkout.Session) {
     customerEmail,
     currency,
     amountDiscount: total_details?.amount_discount
-      ? total_details.amount_discount / 100
+      ? total_details.amount_discount / 100 // Convert cents to dollars
       : 0,
     products: sanityProducts,
-    totalPrice: amount_total ? amount_total / 100 : 0,
+    totalPrice: amount_total ? amount_total / 100 : 0, // Convert cents to dollars
     status: "paid",
     orderDate: new Date().toISOString(),
   });

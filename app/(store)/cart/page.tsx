@@ -15,6 +15,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+/**
+ * Cart Page Component
+ * 
+ * Displays shopping cart contents and handles checkout process.
+ * Integrates with Clerk authentication and Stripe payments.
+ * 
+ * Features:
+ * - Real-time cart total calculation
+ * - Dynamic product quantity management
+ * - Authentication gate for checkout
+ * - Stripe checkout integration
+ * - Responsive layout
+ */
 function CartPage() {
   const groupedItems = useCartStore((state) => state.getGroupedItems());
   const totalPrice = useCartStore((state) => state.getTotalPrice());

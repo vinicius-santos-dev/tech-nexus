@@ -33,6 +33,18 @@ export const metadata: Metadata = {
   description: "E-commerce store for tech products",
 };
 
+/**
+ * Root Store Layout Component
+ * 
+ * Provides the foundational layout structure for the store group route.
+ * Handles authentication, fonts, draft mode, and common UI elements.
+ *
+ * Features:
+ * - Authentication via ClerkProvider
+ * - Custom font variables (Poppins, Roboto, Exo2)
+ * - Sanity draft mode integration
+ * - Toast notifications
+ */
 export default async function RootLayout({
   children,
 }: Readonly<{

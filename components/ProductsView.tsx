@@ -16,7 +16,15 @@ interface ProductsViewProps {
 
 /**
  * ProductsView Component:
- * A component that manages product filtering by categories and displays the filtered products.
+ * Manages product filtering logic and displays filtered products
+ * @param {Category[]} categories - Available categories for filtering
+ * @param {Product[]} products - Products to be filtered
+ * 
+ * Data Flow:
+ * 1. Receives filter changes from Filter component
+ * 2. Applies filters to product array
+ * 3. Updates filtered products state
+ * 4. Renders updated ProductGrid
  */
 function ProductsView({ categories, products }: ProductsViewProps) {
   const [filteredProducts, setFilteredProducts] = useState(products);
