@@ -118,7 +118,7 @@ async function OrdersPage() {
                     key={item._key}
                     className="flex items-center gap-4 p-3 border border-gray-100 rounded-lg w-full"
                   >
-                    <div className="relative w-16 h-16">
+                    <div className="relative w-16 h-16 flex-shrink-0">
                       {item.product?.image && (
                         <Image
                           src={imageUrl(item.product.image).url()}
@@ -131,8 +131,8 @@ async function OrdersPage() {
 
                     {item.product && (
                       <>
-                        <div className="flex-1">
-                          <p className="font-medium truncate">
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium truncate max-w-[200px] sm:max-w-[300px]">
                             {item.product?.name}
                           </p>
                           <p className="text-sm text-gray-500">
