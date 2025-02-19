@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import { Toaster } from "@/components/ui/toaster";
 import { SanityLive } from "@/sanity/lib/live";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from "next";
 import { VisualEditing } from "next-sanity";
 import { Exo_2, Poppins, Roboto } from "next/font/google";
@@ -73,6 +74,7 @@ export default async function RootLayout({
           </main>
 
           <SanityLive />
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
