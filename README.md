@@ -16,7 +16,7 @@ Features a responsive design and seamless shopping experience.
 - 🔍 Real-time product search
 - 🛒 Shopping cart with Zustand state management
 - 💳 Secure Stripe payment integration
-- 🌐 Order tracking system
+- 📋 Order history
 - 🎨 Draft mode for content preview
 - 📱 Responsive design with mobile-first approach
 
